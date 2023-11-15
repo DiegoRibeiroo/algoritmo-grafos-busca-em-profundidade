@@ -3,6 +3,10 @@
 def printList(d, f, n):
     print("D:", "[" + ", ".join(map(str, d[:n])) + "]")
     print("F:", "[" + ", ".join(map(str, f[:n])) + "]")
+    
+    # Saída mais organizada do vetores de tempo D e F
+    # JOIN concatena cada iteração da lista usando MAP com , e um espaço
+
 
 #Função para carregar a lista de adjacentes
 def loadList():

@@ -86,7 +86,7 @@ d = [0] * n
 f = [0] * n
 mark = 0
 
-#Chamo o algoritmo DFS pro Grafo e printo em seguida os vetores.
+#Chamo o algoritmo DFS pro Grafo e printo em seguida os vetores e a nomenclatura.
 DFS()
 printList(d, f, n)
 nomenclaturaArestas()

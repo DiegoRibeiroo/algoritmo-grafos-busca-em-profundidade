@@ -26,13 +26,10 @@ def loadList():
     file.close()
     return list_adjacent, n
 
-arestasArvore = []
-arestasRetorno = []
-arestasAvanco = []
-arestasCruzamento = []
+
 
 def DFS_visit(u):
-    global arestasArvore,arestasAvanco,arestasCruzamento,arestasRetorno
+    global tiposDasArestas
     global mark 
     cor[u] = "Cinza" #Marco o vértice branco como cinza
 
@@ -41,14 +38,14 @@ def DFS_visit(u):
 
     for v in lista_adj[u]: #Percorro a lista de vértices adjacentes de U até que não encontre ninguém mais branco.
         if cor[v] == "Branco":
-            arestasArvore.append(f"{u+1} {v+1}: Árvore")
+            tiposDasArestas.append(f"{u+1} {v+1}: Árvore")
             DFS_visit(v)
         elif cor[v] == "Cinza":
-            arestasRetorno.append(f"{u+1} {v+1}: Retorno")
+            tiposDasArestas.append(f"{u+1} {v+1}: Retorno")
         elif cor[v] == "Preto" and d[u] < f[v]:
-            arestasAvanco.append(f"{u+1} {v+1}: Avanço")
+            tiposDasArestas.append(f"{u+1} {v+1}: Avanço")
         else:
-            arestasCruzamento.append(f"{u+1} {v+1}: Cruzamento")
+            tiposDasArestas.append(f"{u+1} {v+1}: Cruzamento")
         
     cor[u] = "Preto" #Após todos seus vizinhos terem sido testados, marca o vértice como preto.
     mark += 1
@@ -63,18 +60,13 @@ def DFS():
         if cor[u] == "Branco":
             DFS_visit(u)
 
-def nomenclaturaArestas():
+def exibirTiposDasArestas():
+    global tiposDasArestas
     print(f"Resultado do DFS a partir do vértice {v[0]+1}!")
-    for i in arestasArvore:
-        print(i)
-    for i in arestasAvanco:
-        print(i)
-    for i in arestasRetorno:
-        print(i)
-    for i in arestasCruzamento:
+    for i in tiposDasArestas:
         print(i)
 
-
+tiposDasArestas = []
 
 [lista_adj, n] = loadList() #Carrego a lista de adjacência e o tamanho de vertices.
 
@@ -89,4 +81,4 @@ mark = 0
 #Chamo o algoritmo DFS pro Grafo e printo em seguida os vetores e a nomenclatura.
 DFS()
 printList(d, f, n)
-nomenclaturaArestas()
+exibirTiposDasArestas()

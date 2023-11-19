@@ -1,5 +1,4 @@
 # Implementação de uma lista de adjacentes 
-
 def printList(d, f, n):
     print("D:", "[" + ", ".join(map(str, d[:n])) + "]")
     print("F:", "[" + ", ".join(map(str, f[:n])) + "]")
@@ -9,7 +8,7 @@ def printList(d, f, n):
 
 #Função para carregar os vértices de maior grau de saída pro menor.
 def listaDosMaioresGraus():
-    file = open("grafos/g2.txt", "r")
+    file = open("grafos/g1.txt", "r")
     list = file.readlines()
     
     #Irá ler a primeira coluna do arquivo txt do grafo escolhido.
@@ -22,16 +21,16 @@ def listaDosMaioresGraus():
             saidas[int(line[0])-1] += 1 #Cada vez que o número aparecer, quer dizer que seu grau de saída é aumentado.
     file.close()
 
-    maioresgraus = [] #Crio uma lista vazia para armazenas os vértices do maior grau pro menor.
+    maioresgraus = [] #Crio uma lista vazia para armazenar os vértices do maior grau pro menor.
     for i in range(len(saidas)):
-        maioresgraus.append(saidas.index(max(saidas))) #Vai adicionando na lista o índice(vértice) de maior grau até então.
-        saidas[saidas.index(max(saidas))] = -1 #E no local do vértice de maior grau de saída é substituido por -1, para simbolizar que o vértice já foi removido da lista.
+        vertice = saidas.index(max(saidas))
+        maioresgraus.append(vertice) #Vai adicionando na lista o índice(vértice) de maior grau até então.
+        saidas[vertice] = -1 #E no local do vértice de maior grau de saída é substituido por -1, para simbolizar que o vértice já foi removido da lista.
     return maioresgraus #E retorna a lista com os vértices do maior grau de saída pro menor.
-    
 
 #Função para carregar a lista de adjacentes
 def loadList():
-    file = open("grafos/g2.txt", "r") #Abro o arquivo txt em modo de leitura
+    file = open("grafos/g1.txt", "r") #Abro o arquivo txt em modo de leitura
     list = file.readlines() #Leio cada linha
 
     for i in range(len(list)):
@@ -46,7 +45,6 @@ def loadList():
     
     file.close()
     return list_adjacent, n
-
 
 def DFS_visit(u):
     global tiposDasArestas
@@ -71,8 +69,8 @@ def DFS_visit(u):
     mark += 1
     f[u] = mark #E marca o tempo que ele se torno preto.
 
-
 def DFS():
+    global v
     for u in v: #Inicializo todos os vértices como brancos
         cor[u] = "Branco"
 
@@ -85,7 +83,6 @@ def exibirTiposDasArestas():
     print(f"Resultado do DFS a partir do vértice {v[0]+1}!")
     for i in tiposDasArestas:
         print(i)
-
 
 tiposDasArestas = [] #Lista que irá armazenar a nomenclatura das arestas.
 [lista_adj, n] = loadList() #Carrego a lista de adjacência e o tamanho de vertices.
